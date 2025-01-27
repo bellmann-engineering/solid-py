@@ -1,30 +1,25 @@
-class User:
-    def __init__(self, name, email):
+import datetime
+
+class Employee:
+    def __init__(self, name: str, salary: float):
         self.name = name
-        self.email = email
+        self.salary = salary
 
-class UserRepository:
-    def save_to_database(self, user):
-        # Code zum Speichern des Benutzers in der Datenbank
-        pass
+    def add_bonus(self, amount: float) -> None:
+        self.salary += amount
 
-class EmailService:
-    def send_email(self, user, message):
-        # Code zum Senden einer E-Mail an den Benutzer
-        pass
+    def get_payroll_details(self) -> dict:
+        return {
+            "name": self.name,
+            "salary": self.salary
+        }
 
-class SalaryCalculator:
-    def calculate_salary(self, user):
-        # Code zur Berechnung des Benutzergehalts
-        pass
+class DatabaseOperator:
+    def save_employee_to_database(self, employee: Employee) -> None:
+        # Simulating database operations
+        print(f"Saving {employee.name} to database...")
 
-# Anwendungslogik
-user_repository = UserRepository()
-email_service = EmailService()
-salary_calculator = SalaryCalculator()
-
-def register_user(name, email):
-    user = User(name, email)
-    user_repository.save_to_database(user)
-    email_service.send_email(user, "Willkommen!")
-    salary = salary_calculator.calculate_salary(user)
+class NotificationService:
+    def send_notification(self, employee: Employee) -> None:
+        # Simulating sending email or notification
+        print(f"Notifying {employee.name} about salary update...")

@@ -1,16 +1,23 @@
-class User:
-    def __init__(self, name, email):
+import datetime
+
+class Employee:
+    def __init__(self, name: str, salary: float):
         self.name = name
-        self.email = email
-    
-    def save_to_database(self):
-        # Code zum Speichern des Benutzers in der Datenbank
-        pass
-    
-    def send_email(self, message):
-        # Code zum Senden einer E-Mail an den Benutzer
-        pass
-    
-    def calculate_salary(self):
-        # Code zur Berechnung des Benutzergehalts
-        pass
+        self.salary = salary
+
+    def add_bonus(self, amount: float) -> None:
+        self.salary += amount
+
+    def save_to_database(self) -> None:
+        # Simulating database operations
+        print(f"Saving {self.name} to database...")
+
+    def send_notification(self) -> None:
+        # Simulating sending email or notification
+        print(f"Notifying {self.name} about salary update...")
+
+    def get_payroll_details(self) -> dict:
+        return {
+            "name": self.name,
+            "salary": self.salary
+        }

@@ -1,19 +1,27 @@
-class Car:
-    def accelerate(self):
-        # Code zur Beschleunigung des Autos
+from abc import ABC, abstractmethod
+
+class PaymentProcessor(ABC):
+    @abstractmethod
+    def pay(self, amount: float) -> None:
+        """Charge the customer"""
         pass
 
-    def brake(self):
-        # Code zum Bremsen des Autos
+    @abstractmethod
+    def refund(self, amount: float) -> None:
+        """Refund the customer"""
         pass
 
-class SelfDrivingCar(Car):
-    def accelerate(self):
-        raise NotImplementedError("Self-driving cars cannot be manually accelerated")
+class PaypalProcessor(PaymentProcessor):
+    def pay(self, amount: float) -> None:
+        print(f"Charging ${amount:.2f} via PayPal")
 
-    def brake(self):
-        raise NotImplementedError("Self-driving cars cannot be manually braked")
+    def refund(self, amount: float) -> None:
+        print(f"Refunding ${amount:.2f} via PayPal")
 
-    def engage_auto_pilot(self):
-        # Code zum Aktivieren des Autopiloten
-        pass
+class BitcoinProcessor(PaymentProcessor):
+    def pay(self, amount: float) -> None:
+        print(f"Charging {amount:.6f} BTC on the blockchain")
+
+    def refund(self, amount: float) -> None:
+        # Oops—Bitcoin payments aren’t refundable!
+        raise NotImplementedError("Cannot refund Bitcoin payments")

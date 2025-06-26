@@ -1,22 +1,32 @@
-class Car:
-    def accelerate(self):
-        # Code zur Beschleunigung des Autos
+from abc import ABC, abstractmethod
+class PaymentProcessor(ABC):
+    @abstractmethod
+    def pay(self, amount: float) -> None:
         pass
 
-    def brake(self):
-        # Code zum Bremsen des Autos
+class RefundStrategy(ABC):
+    @abstractmethod
+    def refund(self, amount: float) -> None:
         pass
 
-class SelfDrivingCar:
-    def __init__(self, car):
-        self.car = car
+class RealRefundStrategy(RefundStrategy):
+    def refund(self, amount: float) -> None:
+        print(f"Refunding ${amount:.2f}")
 
-    def engage_auto_pilot(self):
-        # Code zum Aktivieren des Autopiloten
-        pass
+class NoRefundStrategy(RefundStrategy):
+    def refund(self, amount: float) -> None:
+        print(f"Refund of ${amount:.2f} requested, but this processor does not support refunds.")
 
-    def accelerate(self):
-        self.engage_auto_pilot()
+class PaypalProcessor(PaymentProcessor):
+    def __init__(self):
+        self.refunder = RealRefundStrategy()
 
-    def brake(self):
-        self.engage_auto_pilot()
+    def pay(self, amount: float) -> None:
+        print(f"Charging ${amount:.2f} via PayPal")
+
+class BitcoinProcessor(PaymentProcessor):
+    def __init__(self):
+        self.refunder = NoRefundStrategy()
+
+    def pay(self, amount: float) -> None:
+        print(f"Charging {amount:.6f} BTC on the blockchain")
